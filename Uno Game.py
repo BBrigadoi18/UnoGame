@@ -39,7 +39,6 @@ def distribute_cards(card_list):
     return player1_hand, player2_hand
 
 
-
 # print(uno_cards_dict[97][1])
 
 # For now, no special cards
