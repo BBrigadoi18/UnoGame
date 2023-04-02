@@ -22,8 +22,9 @@ uno_cards_dict = {1: ("0", "Red"), 2: ("1", "Red"), 3: ("2", "Red"), 4: ("3", "R
                     91: ("Draw 4", "Black"), 92: ("Draw 4", "Black"), 93: ("Skip", "Yellow"), 94: ("Skip", "Yellow"), 95: ("Skip", "Red"), 96: ("Skip", "Red"), 
                     97: ("Skip", "Green"), 98: ("Skip", "Green"), 99: ("Skip", "Blue"), 100: ("Skip", "Blue")}
 
-
+# Generate random cards within range of cards; confirm that there are no duplicates
 def distribute_cards(card_list):
+
     player1_hand = []
     player2_hand = []
 
@@ -36,7 +37,15 @@ def distribute_cards(card_list):
 
     for n in player2_hand:
         card_list.remove(n)
+        
     return player1_hand, player2_hand
+
+def shuffle_cards(card_list):
+    random.shuffle(card_list)
+    return card_list
+
+
+   
 
 
 # print(uno_cards_dict[97][1])
@@ -47,14 +56,8 @@ card_list = list(range(1,77))
 player1, player2 = distribute_cards(card_list)
 
 
-
-# Generate random cards within range of cards; confirm that there are no duplicates  
-
-
 # Shuffle the main deck - becomes draw deck  
-random.shuffle(card_list)
-
-draw_deck = card_list
+draw_deck = shuffle_cards(card_list)
 
 discard_pile = []
 discard_pile.append(draw_deck[0])
