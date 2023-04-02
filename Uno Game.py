@@ -40,7 +40,6 @@ def distribute_cards(card_list):
 
 
 # print(uno_cards_dict[97][1])
-
 # For now, no special cards
 card_list = list(range(1,77))
 
