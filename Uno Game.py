@@ -52,27 +52,24 @@ def check_player1_hand(discard_pile_card, player1_hand):
     for n in range(len(player1_hand)):
         PLAYER_CARD = uno_cards_dict[player1_hand[n]] 
         if PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1]: 
-            valid_color_cards.append(n)
+            valid_color_cards.append(player1_hand[n])
         elif PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]:
-            valid_number_cards.append(n)
+            valid_number_cards.append(player1_hand[n])
 
     for n in valid_number_cards:
         valid_color_cards.append(n)
-
+    
     return valid_color_cards
 
 # Player 2 is playing randomly - no strategy
 def check_player2_hand(discard_pile_card, player2_hand):
     valid_cards = []
     for n in range(len(player2_hand)):
-        print(player2_hand)
+        
         PLAYER_CARD = uno_cards_dict[player2_hand[n]] 
-        print(discard_pile_card)
-        print(PLAYER_CARD)
-        print(PLAYER_CARD[0])
-        print(uno_cards_dict[discard_pile_card][0])
+        
         if PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1] or PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]:
-            valid_cards.append(n)
+            valid_cards.append(player2_hand[n])
     return valid_cards
     
 # Draw from the deck if player does not have any valid cards 
@@ -87,7 +84,9 @@ def lay_down_card(valid_player_hand, discard_pile, player_hand, draw_deck):
         card = valid_player_hand[0]
         print(card)
         discard_pile.append(card)
+        
         player_hand.remove(card)
+        
     except:
         draw_deck, player_hand = draw_card(draw_deck, player_hand)
 
@@ -119,25 +118,35 @@ discard_pile = []
 discard_pile.append(draw_deck[0])
 
 # Play until draw deck is out then shuffle
+print("player1 " + str(player1_hand))
+print("player2 " + str(player2_hand))
 
-while len(player1_hand) > 0 or len(player2_hand) > 0:
+while True:
     # Reset draw pile from shuffle discard pile
     if len(draw_deck) == 0: 
         draw_deck = shuffle_cards(discard_pile)
         discard_pile = [] 
         discard_pile.append(draw_deck[0])
-
-    print(discard_pile)
-    print(player1_hand)
-    print(player2_hand)
-
+      
+    
     player1_options = check_player1_hand(discard_pile[-1], player1_hand)
     discard_pile, player1_hand = lay_down_card(player1_options, discard_pile, player1_hand, draw_deck)
-    print(discard_pile)
+    print("player1 " + str(player1_hand))
+    if len(player1_hand) == 0:
+        print("Player 1 wins!")
+        break 
 
+    if len(draw_deck) == 0: 
+            draw_deck = shuffle_cards(discard_pile)
+            discard_pile = [] 
+            discard_pile.append(draw_deck[0])
+            
     player2_options = check_player2_hand(discard_pile[-1], player2_hand)
     discard_pile, player2_hand = lay_down_card(player2_options, discard_pile, player2_hand, draw_deck)
-
+    print("player2 " + str(player2_hand))
+    if len(player2_hand) == 0:
+        print("Player 2 wins!")
+        break 
 
 
 
