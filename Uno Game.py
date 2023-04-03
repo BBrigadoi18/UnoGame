@@ -54,7 +54,11 @@ def check_player1_hand(discard_pile_card, player1_hand):
             valid_color_cards.append(n)
         elif player1_hand[n][0] == uno_cards_dict[discard_pile_card][0]:
             valid_number_cards.append(n)
-    return valid_color_cards, valid_number_cards
+
+    for n in valid_number_cards:
+        valid_color_cards.append(n)
+
+    return valid_color_cards
 
 # Player 2 is playing randomly - no strategy
 def check_player2_hand(discard_pile_card, player2_hand):
@@ -63,29 +67,29 @@ def check_player2_hand(discard_pile_card, player2_hand):
         if player2_hand[n][1] == uno_cards_dict[discard_pile_card][1] or player2_hand[n][0] == uno_cards_dict[discard_pile_card][0]:
             valid_cards.append(n)
     return valid_cards
-
-# Function to check if player 1 can lay down a color; if not, checks for number
-def player1_options(color_list, number_list):
-    if len(color_list) > 0:
-        return color_list
-    elif len(number_list) > 0:
-        return number_list
-    else:
-        return []    # They have no valid cards to put down 
     
 # Draw from the deck if player does not have any valid cards 
 def draw_card(draw_deck, player_hand):
     player_hand.append(draw_deck[0])
     draw_deck.remove(draw_deck[0])
-    return player_hand, draw_deck
+    return draw_deck, player_hand
 
 # Player lays down valid card in discard pile 
-def lay_down_card(valid_player_hand, discard_pile, player_hand):
-    card = random.choice(valid_player_hand)
-    discard_pile.append(card)
-    player_hand.remove(card)
+def lay_down_card(valid_player_hand, discard_pile, player_hand, draw_deck):
+    try:
+        card = valid_player_hand[0]
+        discard_pile.append(card)
+        player_hand.remove(card)
+    except:
+        draw_deck, player_hand = draw_card(draw_deck, player_hand)
+
     return discard_pile, player_hand
 
+# Make the discard pile the new draw deck when draw deck is empty
+def replenish_draw_deck(draw_deck, discard_pile):
+   draw_deck = shuffle_cards(discard_pile)
+   discard_pile = []
+   return draw_deck, discard_pile
 
 
 
