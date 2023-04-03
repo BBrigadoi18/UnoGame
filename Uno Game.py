@@ -49,10 +49,11 @@ def shuffle_cards(card_list):
 def check_player1_hand(discard_pile_card, player1_hand):
     valid_color_cards = []
     valid_number_cards = []
-    for n in player1_hand:
-        if player1_hand[n][1] == uno_cards_dict[discard_pile_card][1]: 
+    for n in range(len(player1_hand)):
+        PLAYER_CARD = uno_cards_dict[player1_hand[n]] 
+        if PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1]: 
             valid_color_cards.append(n)
-        elif player1_hand[n][0] == uno_cards_dict[discard_pile_card][0]:
+        elif PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]:
             valid_number_cards.append(n)
 
     for n in valid_number_cards:
@@ -63,8 +64,14 @@ def check_player1_hand(discard_pile_card, player1_hand):
 # Player 2 is playing randomly - no strategy
 def check_player2_hand(discard_pile_card, player2_hand):
     valid_cards = []
-    for n in player2_hand:
-        if player2_hand[n][1] == uno_cards_dict[discard_pile_card][1] or player2_hand[n][0] == uno_cards_dict[discard_pile_card][0]:
+    for n in range(len(player2_hand)):
+        print(player2_hand)
+        PLAYER_CARD = uno_cards_dict[player2_hand[n]] 
+        print(discard_pile_card)
+        print(PLAYER_CARD)
+        print(PLAYER_CARD[0])
+        print(uno_cards_dict[discard_pile_card][0])
+        if PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1] or PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]:
             valid_cards.append(n)
     return valid_cards
     
@@ -78,6 +85,7 @@ def draw_card(draw_deck, player_hand):
 def lay_down_card(valid_player_hand, discard_pile, player_hand, draw_deck):
     try:
         card = valid_player_hand[0]
+        print(card)
         discard_pile.append(card)
         player_hand.remove(card)
     except:
@@ -97,28 +105,46 @@ def replenish_draw_deck(draw_deck, discard_pile):
 
    
 
-
-# print(uno_cards_dict[97][1])
 # For now, no special cards
 card_list = list(range(1,77))
 
-player1, player2 = distribute_cards(card_list)
+player1_hand, player2_hand = distribute_cards(card_list)
 
 
 # Shuffle the main deck - becomes draw deck  
 draw_deck = shuffle_cards(card_list)
 
+# Let us start the game 
 discard_pile = []
 discard_pile.append(draw_deck[0])
-counter = 0
+
 # Play until draw deck is out then shuffle
 
-while len(player1) > 0 or len(player2) > 0:
+while len(player1_hand) > 0 or len(player2_hand) > 0:
     # Reset draw pile from shuffle discard pile
     if len(draw_deck) == 0: 
-        random.shuffle(discard_pile)
-        draw_deck = discard_pile
+        draw_deck = shuffle_cards(discard_pile)
         discard_pile = [] 
+        discard_pile.append(draw_deck[0])
+
+    print(discard_pile)
+    print(player1_hand)
+    print(player2_hand)
+
+    player1_options = check_player1_hand(discard_pile[-1], player1_hand)
+    discard_pile, player1_hand = lay_down_card(player1_options, discard_pile, player1_hand, draw_deck)
+    print(discard_pile)
+
+    player2_options = check_player2_hand(discard_pile[-1], player2_hand)
+    discard_pile, player2_hand = lay_down_card(player2_options, discard_pile, player2_hand, draw_deck)
+
+
+
+
+
+
+
+
     
 
 
