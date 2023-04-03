@@ -40,6 +40,7 @@ def distribute_cards(card_list):
 
     return player1_hand, player2_hand
 
+# Shuffle the deck 
 def shuffle_cards(card_list):
     random.shuffle(card_list)
     return card_list
@@ -55,6 +56,7 @@ def check_player1_hand(discard_pile_card, player1_hand):
             valid_number_cards.append(n)
     return valid_color_cards, valid_number_cards
 
+# Player 2 is playing randomly - no strategy
 def check_player2_hand(discard_pile_card, player2_hand):
     valid_cards = []
     for n in player2_hand:
@@ -62,8 +64,32 @@ def check_player2_hand(discard_pile_card, player2_hand):
             valid_cards.append(n)
     return valid_cards
 
-        
+# Function to check if player 1 can lay down a color; if not, checks for number
+def player1_options(color_list, number_list):
+    if len(color_list) > 0:
+        return color_list
+    elif len(number_list) > 0:
+        return number_list
+    else:
+        return []    # They have no valid cards to put down 
+    
+# Draw from the deck if player does not have any valid cards 
+def draw_card(draw_deck, player_hand):
+    player_hand.append(draw_deck[0])
+    draw_deck.remove(draw_deck[0])
+    return player_hand, draw_deck
 
+# Player lays down valid card in discard pile 
+def lay_down_card(valid_player_hand, discard_pile, player_hand):
+    card = random.choice(valid_player_hand)
+    discard_pile.append(card)
+    player_hand.remove(card)
+    return discard_pile, player_hand
+
+
+
+
+    
 
    
 
