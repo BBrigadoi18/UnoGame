@@ -37,12 +37,32 @@ def distribute_cards(card_list):
 
     for n in player2_hand:
         card_list.remove(n)
-        
+
     return player1_hand, player2_hand
 
 def shuffle_cards(card_list):
     random.shuffle(card_list)
     return card_list
+
+# Player 1 is playing strategy - color first 
+def check_player1_hand(discard_pile_card, player1_hand):
+    valid_color_cards = []
+    valid_number_cards = []
+    for n in player1_hand:
+        if player1_hand[n][1] == uno_cards_dict[discard_pile_card][1]: 
+            valid_color_cards.append(n)
+        elif player1_hand[n][0] == uno_cards_dict[discard_pile_card][0]:
+            valid_number_cards.append(n)
+    return valid_color_cards, valid_number_cards
+
+def check_player2_hand(discard_pile_card, player2_hand):
+    valid_cards = []
+    for n in player2_hand:
+        if player2_hand[n][1] == uno_cards_dict[discard_pile_card][1] or player2_hand[n][0] == uno_cards_dict[discard_pile_card][0]:
+            valid_cards.append(n)
+    return valid_cards
+
+        
 
 
    
