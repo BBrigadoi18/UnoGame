@@ -102,7 +102,6 @@ def replenish_draw_deck(draw_deck, discard_pile):
 
     
 
-   
 
 # For now, no special cards
 card_list = list(range(1,77))
