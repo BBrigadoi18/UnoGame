@@ -124,6 +124,16 @@ discard_pile.append(draw_deck[0])
 print("player1 " + str(player1_hand))
 print("player2 " + str(player2_hand))
 
+# def turn(player_hand, top_card):
+  # check for a skip or reverse:
+  #   *do nothing
+  #   return
+  # check for a draw card
+  #   *draw n cards
+  #   return
+  # laydown_card(***)
+
+
 while True:
     # Reset draw pile from shuffle discard pile
     if len(draw_deck) == 0: 
@@ -150,38 +160,3 @@ while True:
     if len(player2_hand) == 0:
         print("Player 2 wins!")
         break 
-
-
-
-
-
-
-
-    
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
