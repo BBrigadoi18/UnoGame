@@ -98,13 +98,17 @@ def replenish_draw_deck(draw_deck, discard_pile):
    discard_pile = []
    return draw_deck, discard_pile
 
+#Function models the Skip card
+# def skip(player, previous_player, discard_pile, draw_deck):
+    
+ 
 
 
     
 
 
 # For now, no special cards
-card_list = list(range(1,77))
+card_list = list(range(1,77)) # change range when implementing special cards !!
 
 player1_hand, player2_hand = distribute_cards(card_list)
 
