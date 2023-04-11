@@ -55,6 +55,8 @@ def check_player1_hand(discard_pile_card, player1_hand):
             valid_color_cards.append(player1_hand[n])
         elif PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]:
             valid_number_cards.append(player1_hand[n])
+        elif PLAYER_CARD[1] == "Black": # check if player has a special card - can be played whenever 
+            valid_number_cards.append(player1_hand[n])
 
     for n in valid_number_cards:
         valid_color_cards.append(n)
@@ -68,7 +70,7 @@ def check_player2_hand(discard_pile_card, player2_hand):
         
         PLAYER_CARD = uno_cards_dict[player2_hand[n]] 
         
-        if PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1] or PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]:
+        if PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1] or PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0] or PLAYER_CARD[1] == "Black":
             valid_cards.append(player2_hand[n])
     return valid_cards
     
@@ -102,6 +104,13 @@ def replenish_draw_deck(draw_deck, discard_pile):
 # def skip(player, previous_player, discard_pile, draw_deck):
     
  
+# def check_card(player, card, draw_deck, pile_deck):
+#     action = True
+#     while action:
+#         if uno_cards_dict[card][0] == "Draw 2":
+#             # do something
+#             action = False
+#         elif uno_cards_dict[card][0] == "Draw 4":
 
 
     
@@ -137,8 +146,7 @@ print("player2 " + str(player2_hand))
 while True:
     # Reset draw pile from shuffle discard pile
     if len(draw_deck) == 0: 
-        draw_deck = shuffle_cards(discard_pile)
-        discard_pile = [] 
+        draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
         discard_pile.append(draw_deck[0])
       
     
@@ -150,8 +158,7 @@ while True:
         break 
 
     if len(draw_deck) == 0: 
-            draw_deck = shuffle_cards(discard_pile)
-            discard_pile = [] 
+            draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
             discard_pile.append(draw_deck[0])
             
     player2_options = check_player2_hand(discard_pile[-1], player2_hand)
