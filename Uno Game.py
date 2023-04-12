@@ -55,8 +55,8 @@ def check_player1_hand(discard_pile_card, player1_hand):
             valid_color_cards.append(player1_hand[n])
         elif PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]:
             valid_number_cards.append(player1_hand[n])
-        elif PLAYER_CARD[1] == "Black": # check if player has a special card - can be played whenever 
-            valid_number_cards.append(player1_hand[n])
+        # elif PLAYER_CARD[1] == "Black": # check if player has a special card - can be played whenever 
+        #     valid_number_cards.append(player1_hand[n])
 
     for n in valid_number_cards:
         valid_color_cards.append(n)
@@ -70,7 +70,7 @@ def check_player2_hand(discard_pile_card, player2_hand):
         
         PLAYER_CARD = uno_cards_dict[player2_hand[n]] 
         
-        if PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1] or PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0] or PLAYER_CARD[1] == "Black":
+        if PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1] or PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]: # or PLAYER_CARD[1] == "Black":
             valid_cards.append(player2_hand[n])
     return valid_cards
     
