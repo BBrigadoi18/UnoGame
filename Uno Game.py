@@ -96,8 +96,12 @@ def lay_down_card(valid_player_hand, discard_pile, player_hand, draw_deck):
 
 # Make the discard pile the new draw deck when draw deck is empty
 def replenish_draw_deck(draw_deck, discard_pile):
+   top_card = discard_pile[-1]
+   discard_pile.remove(top_card)
    draw_deck = shuffle_cards(discard_pile)
    discard_pile = []
+   discard_pile.add(top_card)
+
    return draw_deck, discard_pile
 
 #Function models the Skip card
@@ -147,8 +151,6 @@ while True:
     # Reset draw pile from shuffle discard pile
     if len(draw_deck) == 0: 
         draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
-        discard_pile.append(draw_deck[0])
-      
     
     player1_options = check_player1_hand(discard_pile[-1], player1_hand)
     discard_pile, player1_hand = lay_down_card(player1_options, discard_pile, player1_hand, draw_deck)
@@ -159,7 +161,6 @@ while True:
 
     if len(draw_deck) == 0: 
             draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
-            discard_pile.append(draw_deck[0])
             
     player2_options = check_player2_hand(discard_pile[-1], player2_hand)
     discard_pile, player2_hand = lay_down_card(player2_options, discard_pile, player2_hand, draw_deck)
