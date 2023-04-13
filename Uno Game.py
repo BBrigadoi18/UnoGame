@@ -99,7 +99,7 @@ def replenish_draw_deck(draw_deck, discard_pile):
    discard_pile.remove(top_card)
    draw_deck = shuffle_cards(discard_pile)
    discard_pile = []
-   discard_pile.add(top_card)
+   discard_pile.append(top_card)
 
    return draw_deck, discard_pile
 
@@ -141,8 +141,7 @@ def player_turn(action, discard_pile, player_hand, draw_deck, player):
     else: 
         action = True
     return action, discard_pile, player_hand, draw_deck
-# There is still a problem - if player 1 gives player 2 a draw four - 2 draws 4, what if player 1 does not have a playable card(?)
-# May be resolved 
+ 
 
 # For now, no special cards
 card_list = list(range(1,101)) # change range when implementing special cards !!
@@ -168,9 +167,6 @@ while True:
         draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
     
     action, discard_pile, player1_hand, draw_deck = player_turn(action, discard_pile, player1_hand, draw_deck, 1)
-    # player1_options = check_player1_hand(discard_pile[-1], player1_hand)
-    # discard_pile, player1_hand = lay_down_card(player1_options, discard_pile, player1_hand, draw_deck)
-
 
     print("player1 " + str(player1_hand))
     if len(player1_hand) == 0:
@@ -181,8 +177,6 @@ while True:
             draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
 
     action, discard_pile, player2_hand, draw_deck = player_turn(action, discard_pile, player2_hand, draw_deck, 2)    
-    # player2_options = check_player2_hand(discard_pile[-1], player2_hand)
-    # discard_pile, player2_hand = lay_down_card(player2_options, discard_pile, player2_hand, draw_deck)
 
     print("player2 " + str(player2_hand))
     if len(player2_hand) == 0:
