@@ -121,25 +121,25 @@ def skip(player):
     
 def player_1_turn(discard_pile, player_hand, draw_deck):
     top_card = discard_pile[-1]
-    if uno_cards_dict[top_card][0] == "Skip":
-        # call skip function
-        # turn over
-        # Something indicating that action has been done
-        return 
-    elif uno_cards_dict[top_card][0] == "Draw 2":
-        # call draw function twice
-        # turn over
-        # Something indicating that action has been done
-        return
-    elif uno_cards_dict[top_card][0] == "Draw 4":
-        # call draw function four times 
-        # turn over
-        # something indicating that action has been done 
-        return
+    if action==True:
+        if uno_cards_dict[top_card][0] == "Skip":
+            action=False
+            return action, discard_pile, player_hand, draw_deck
+        elif uno_cards_dict[top_card][0] == "Draw 2":
+            # call draw function twice
+            action=False
+            return action, discard_pile, player_hand, draw_deck
+        elif uno_cards_dict[top_card][0] == "Draw 4":
+            # call draw function four times 
+            action=False
+            return action, discard_pile, player_hand, draw_deck
     else: 
         player1_options = check_player1_hand(discard_pile[-1], player1_hand)
         discard_pile, player1_hand = lay_down_card(player1_options, discard_pile, player1_hand, draw_deck)
-        
+        action=True
+        return action,discard_pile, player_hand, draw_deck
+
+                
 
 
 # For now, no special cards
