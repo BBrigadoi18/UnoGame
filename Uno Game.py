@@ -142,6 +142,7 @@ def player_turn(action, discard_pile, player_hand, draw_deck, player):
         action = True
     return action, discard_pile, player_hand, draw_deck
 # There is still a problem - if player 1 gives player 2 a draw four - 2 draws 4, what if player 1 does not have a playable card(?)
+# May be resolved 
 
 # For now, no special cards
 card_list = list(range(1,101)) # change range when implementing special cards !!
