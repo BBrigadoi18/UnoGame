@@ -136,6 +136,10 @@ def player_1_turn(discard_pile, player_hand, draw_deck):
         # turn over
         # something indicating that action has been done 
         return
+    else: 
+        player1_options = check_player1_hand(discard_pile[-1], player1_hand)
+        discard_pile, player1_hand = lay_down_card(player1_options, discard_pile, player1_hand, draw_deck)
+        
 
 
 # For now, no special cards
