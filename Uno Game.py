@@ -18,8 +18,8 @@ uno_cards_dict = {1: ("0", "Red"), 2: ("1", "Red"), 3: ("2", "Red"), 4: ("3", "R
                     65: ("7", "Yellow"), 66: ("8", "Yellow"), 67: ("9", "Yellow"), 68:("1", "Yellow"), 69: ("2", "Yellow"), 70: ("3", "Yellow"), 71: ("4", "Yellow"), 
                     72: ("5", "Yellow"), 73: ("6", "Yellow"), 74: ("7", "Yellow"), 75: ("8", "Yellow"), 76: ("9", "Yellow"), 77: ("Draw 2", "Red"), 78: ("Draw 2", "Red"),
                     79: ("Draw 2", "Blue"), 80: ("Draw 2", "Blue"), 81: ("Draw 2", "Green"), 82: ("Draw 2", "Green"),  83: ("Draw 2", "Yellow"), 84: ("Draw 2", "Yellow"), 
-                    85: ("Wild", "Black"), 86: ("Wild", "Black"), 87: ("Wild", "Black"), 88: ("Wild", "Black"), 89: ("Draw 4", "Black"), 90: ("Draw 4", "Black"),
-                    91: ("Draw 4", "Black"), 92: ("Draw 4", "Black"), 93: ("Skip", "Yellow"), 94: ("Skip", "Yellow"), 95: ("Skip", "Red"), 96: ("Skip", "Red"), 
+                    85: ("Wild", "Red"), 86: ("Wild", "Blue"), 87: ("Wild", "Green"), 88: ("Wild", "Yellow"), 89: ("Draw 4", "Red"), 90: ("Draw 4", "Blue"),
+                    91: ("Draw 4", "Green"), 92: ("Draw 4", "Yellow"), 93: ("Skip", "Yellow"), 94: ("Skip", "Yellow"), 95: ("Skip", "Red"), 96: ("Skip", "Red"), 
                     97: ("Skip", "Green"), 98: ("Skip", "Green"), 99: ("Skip", "Blue"), 100: ("Skip", "Blue")}
 
 # Generate random cards within range of cards; confirm that there are no duplicates
@@ -143,7 +143,7 @@ def player_1_turn(discard_pile, player_hand, draw_deck):
 
 
 # For now, no special cards
-card_list = list(range(1,77)) # change range when implementing special cards !!
+card_list = list(range(1,101)) # change range when implementing special cards !!
 
 player1_hand, player2_hand = distribute_cards(card_list)
 
