@@ -55,8 +55,7 @@ def check_player1_hand(discard_pile_card, player1_hand):
             valid_color_cards.append(player1_hand[n])
         elif PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]:
             valid_number_cards.append(player1_hand[n])
-        # elif PLAYER_CARD[1] == "Black": # check if player has a special card - can be played whenever 
-        #     valid_number_cards.append(player1_hand[n])
+
 
     for n in valid_number_cards:
         valid_color_cards.append(n)
@@ -70,7 +69,7 @@ def check_player2_hand(discard_pile_card, player2_hand):
         
         PLAYER_CARD = uno_cards_dict[player2_hand[n]] 
         
-        if PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1] or PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]: # or PLAYER_CARD[1] == "Black":
+        if PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1] or PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]: 
             valid_cards.append(player2_hand[n])
     return valid_cards
     
@@ -104,17 +103,6 @@ def replenish_draw_deck(draw_deck, discard_pile):
 
    return draw_deck, discard_pile
 
-#Function models the Skip card
-# def skip(player, previous_player, discard_pile, draw_deck):
-    
- 
-# def check_card(player, card, draw_deck, pile_deck):
-#     action = True
-#     while action:
-#         if uno_cards_dict[card][0] == "Draw 2":
-#             # do something
-#             action = False
-#         elif uno_cards_dict[card][0] == "Draw 4":
 
     
 def player_1_turn(discard_pile, player_hand, draw_deck, action):
@@ -165,15 +153,6 @@ discard_pile.append(draw_deck[0])
 # Play until draw deck is out then shuffle
 print("player1 " + str(player1_hand))
 print("player2 " + str(player2_hand))
-
-# def turn(player_hand, top_card):
-  # check for a skip or reverse:
-  #   *do nothing
-  #   return
-  # check for a draw card
-  #   *draw n cards
-  #   return
-  # laydown_card(***)
 
 
 while True:
