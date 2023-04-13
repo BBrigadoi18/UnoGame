@@ -104,12 +104,12 @@ def replenish_draw_deck(draw_deck, discard_pile):
    return draw_deck, discard_pile
 
 
-    
-def player_1_turn(discard_pile, player_hand, draw_deck, action):
+# Simulates player turn  
+def player_turn(action, discard_pile, player_hand, draw_deck, player):
     top_card = discard_pile[-1]
-    if action==True:
+    if action == True:
         if uno_cards_dict[top_card][0] == "Skip":
-            action=False
+            action = False
             return action, discard_pile, player_hand, draw_deck
         elif uno_cards_dict[top_card][0] == "Draw 2":
 
@@ -118,7 +118,7 @@ def player_1_turn(discard_pile, player_hand, draw_deck, action):
                     draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
                 draw_deck, player_hand = draw_card(draw_deck, player_hand)
         
-            action=False
+            action = False
             return action, discard_pile, player_hand, draw_deck
         elif uno_cards_dict[top_card][0] == "Draw 4":
 
@@ -126,16 +126,22 @@ def player_1_turn(discard_pile, player_hand, draw_deck, action):
                 if len(draw_deck) == 0: 
                     draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
                 draw_deck, player_hand = draw_card(draw_deck, player_hand)
-            action=False
+            action = False
             return action, discard_pile, player_hand, draw_deck
+        
+    player_options = []
+    if player == 1:
+        player_options = check_player1_hand(discard_pile[-1], player_hand)
+    else:
+        player_options = check_player2_hand(discard_pile[-1], player_hand)
+
+    discard_pile, player_hand = lay_down_card(player_options, discard_pile, player_hand, draw_deck)
+    if len(player_options) == 0:
+        action = False
     else: 
-        player1_options = check_player1_hand(discard_pile[-1], player1_hand)
-        discard_pile, player1_hand = lay_down_card(player1_options, discard_pile, player1_hand, draw_deck)
-        action=True
-        return action,discard_pile, player_hand, draw_deck
-
-                
-
+        action = True
+    return action, discard_pile, player_hand, draw_deck
+# There is still a problem - if player 1 gives player 2 a draw four - 2 draws 4, what if player 1 does not have a playable card(?)
 
 # For now, no special cards
 card_list = list(range(1,101)) # change range when implementing special cards !!
@@ -154,15 +160,15 @@ discard_pile.append(draw_deck[0])
 print("player1 " + str(player1_hand))
 print("player2 " + str(player2_hand))
 
-
+action = True 
 while True:
     # Reset draw pile from shuffle discard pile
     if len(draw_deck) == 0: 
         draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
     
-
-    player1_options = check_player1_hand(discard_pile[-1], player1_hand)
-    discard_pile, player1_hand = lay_down_card(player1_options, discard_pile, player1_hand, draw_deck)
+    action, discard_pile, player1_hand, draw_deck = player_turn(action, discard_pile, player1_hand, draw_deck, 1)
+    # player1_options = check_player1_hand(discard_pile[-1], player1_hand)
+    # discard_pile, player1_hand = lay_down_card(player1_options, discard_pile, player1_hand, draw_deck)
 
 
     print("player1 " + str(player1_hand))
@@ -172,9 +178,11 @@ while True:
 
     if len(draw_deck) == 0: 
             draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
-            
-    player2_options = check_player2_hand(discard_pile[-1], player2_hand)
-    discard_pile, player2_hand = lay_down_card(player2_options, discard_pile, player2_hand, draw_deck)
+
+    action, discard_pile, player2_hand, draw_deck = player_turn(action, discard_pile, player2_hand, draw_deck, 2)    
+    # player2_options = check_player2_hand(discard_pile[-1], player2_hand)
+    # discard_pile, player2_hand = lay_down_card(player2_options, discard_pile, player2_hand, draw_deck)
+
     print("player2 " + str(player2_hand))
     if len(player2_hand) == 0:
         print("Player 2 wins!")
