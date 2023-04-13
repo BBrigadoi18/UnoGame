@@ -116,8 +116,26 @@ def replenish_draw_deck(draw_deck, discard_pile):
 #             action = False
 #         elif uno_cards_dict[card][0] == "Draw 4":
 
-
+def skip(player): 
+    pass
     
+def player_1_turn(discard_pile, player_hand, draw_deck):
+    top_card = discard_pile[-1]
+    if uno_cards_dict[top_card][0] == "Skip":
+        # call skip function
+        # turn over
+        # Something indicating that action has been done
+        return 
+    elif uno_cards_dict[top_card][0] == "Draw 2":
+        # call draw function twice
+        # turn over
+        # Something indicating that action has been done
+        return
+    elif uno_cards_dict[top_card][0] == "Draw 4":
+        # call draw function four times 
+        # turn over
+        # something indicating that action has been done 
+        return
 
 
 # For now, no special cards
@@ -152,8 +170,11 @@ while True:
     if len(draw_deck) == 0: 
         draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
     
+
     player1_options = check_player1_hand(discard_pile[-1], player1_hand)
     discard_pile, player1_hand = lay_down_card(player1_options, discard_pile, player1_hand, draw_deck)
+
+
     print("player1 " + str(player1_hand))
     if len(player1_hand) == 0:
         print("Player 1 wins!")
