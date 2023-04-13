@@ -119,18 +119,27 @@ def replenish_draw_deck(draw_deck, discard_pile):
 def skip(player): 
     pass
     
-def player_1_turn(discard_pile, player_hand, draw_deck):
+def player_1_turn(discard_pile, player_hand, draw_deck, action):
     top_card = discard_pile[-1]
     if action==True:
         if uno_cards_dict[top_card][0] == "Skip":
             action=False
             return action, discard_pile, player_hand, draw_deck
         elif uno_cards_dict[top_card][0] == "Draw 2":
-            # call draw function twice
+
+            for n in range(0,2):
+                if len(draw_deck) == 0: 
+                    draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
+                draw_deck, player_hand = draw_card(draw_deck, player_hand)
+        
             action=False
             return action, discard_pile, player_hand, draw_deck
         elif uno_cards_dict[top_card][0] == "Draw 4":
-            # call draw function four times 
+            
+            for n in range(0,4):
+                if len(draw_deck) == 0: 
+                    draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
+                draw_deck, player_hand = draw_card(draw_deck, player_hand)
             action=False
             return action, discard_pile, player_hand, draw_deck
     else: 
