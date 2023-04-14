@@ -1,12 +1,12 @@
+# Bridget Brigadoi and Abby Thompson
+# Math Modeling - Dr. McCullough
 
-
-# Similulating an Uno Game 
-
-# Stack of cards
+# This program simulates an number of uno games where one player is playing strategy and the other is playing normally/randomly
+# Strategy: Player 1 will lay down color first if applicable 
 
 import random 
 
-
+# Stack of cards
 uno_cards_dict = {1: ("0", "Red"), 2: ("1", "Red"), 3: ("2", "Red"), 4: ("3", "Red"), 5: ("4", "Red"), 6: ("5", "Red"), 7: ("6", "Red"), 8: ("7", "Red"), 9: ("8", "Red"), 
                     10: ("9", "Red"), 11: ("1", "Red"), 12: ("2", "Red"), 13: ("3", "Red"), 14: ("4", "Red"), 15: ("5", "Red"),  16: ("6", "Red"), 17: ("7", "Red"), 18: ("8", "Red"), 
                     19: ("9", "Red"), 20: ("0", "Blue"), 21: ("1", "Blue"), 22: ("2", "Blue"), 23: ("3", "Blue"), 24: ("4", "Blue"), 25: ("5", "Blue"), 26: ("6", "Blue"), 
@@ -83,9 +83,7 @@ def draw_card(draw_deck, player_hand):
 def lay_down_card(valid_player_hand, discard_pile, player_hand, draw_deck):
     try:
         card = valid_player_hand[0]
-        print(card)
         discard_pile.append(card)
-        
         player_hand.remove(card)
         
     except:
@@ -142,43 +140,48 @@ def player_turn(action, discard_pile, player_hand, draw_deck, player):
         action = True
     return action, discard_pile, player_hand, draw_deck
  
+trial_size = 1000
+player1_wins = 0 
+player2_wins = 0
 
-# For now, no special cards
-card_list = list(range(1,101)) # change range when implementing special cards !!
-
-player1_hand, player2_hand = distribute_cards(card_list)
+for n in range(trial_size):
 
 
-# Shuffle the main deck - becomes draw deck  
-draw_deck = shuffle_cards(card_list)
+    card_list = list(range(1,101)) 
 
-# Let us start the game 
-discard_pile = []
-discard_pile.append(draw_deck[0])
+    player1_hand, player2_hand = distribute_cards(card_list)
 
-# Play until draw deck is out then shuffle
-print("player1 " + str(player1_hand))
-print("player2 " + str(player2_hand))
 
-action = True 
-while True:
-    # Reset draw pile from shuffle discard pile
-    if len(draw_deck) == 0: 
-        draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
-    
-    action, discard_pile, player1_hand, draw_deck = player_turn(action, discard_pile, player1_hand, draw_deck, 1)
+    # Shuffle the main deck - becomes draw deck  
+    draw_deck = shuffle_cards(card_list)
 
-    print("player1 " + str(player1_hand))
-    if len(player1_hand) == 0:
-        print("Player 1 wins!")
-        break 
+    # Let us start the game 
+    discard_pile = []
+    discard_pile.append(draw_deck[0])
 
-    if len(draw_deck) == 0: 
+
+    action = True 
+    while True:
+        # Reset draw pile from shuffle discard pile when draw deck is empty 
+        if len(draw_deck) == 0: 
             draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
 
-    action, discard_pile, player2_hand, draw_deck = player_turn(action, discard_pile, player2_hand, draw_deck, 2)    
+        action, discard_pile, player1_hand, draw_deck = player_turn(action, discard_pile, player1_hand, draw_deck, 1)
 
-    print("player2 " + str(player2_hand))
-    if len(player2_hand) == 0:
-        print("Player 2 wins!")
-        break 
+        if len(player1_hand) == 0:
+            player1_wins += 1
+            break 
+
+        if len(draw_deck) == 0: 
+            draw_deck, discard_pile = replenish_draw_deck(draw_deck, discard_pile)
+
+        action, discard_pile, player2_hand, draw_deck = player_turn(action, discard_pile, player2_hand, draw_deck, 2)    
+
+        if len(player2_hand) == 0:
+            player2_wins += 1
+            break 
+probability_player1 = player1_wins/trial_size
+probability_player2 = player2_wins/trial_size
+
+print("Probability of Player 1 (Strategy) winning: " + str(probability_player1))
+print("Probability of Player 2 (Random): " + str(probability_player2))
