@@ -45,13 +45,13 @@ def shuffle_cards(card_list):
     random.shuffle(card_list)
     return card_list
 
-# Player 1 is playing strategy - color first 
+# Player 1 is playing strategy - number first 
 def check_player1_hand(discard_pile_card, player1_hand):
     valid_color_cards = []
     valid_number_cards = []
     for n in range(len(player1_hand)):
         PLAYER_CARD = uno_cards_dict[player1_hand[n]] 
-        if PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]: 
+        if PLAYER_CARD[0] == uno_cards_dict[discard_pile_card][0]:
             valid_color_cards.append(player1_hand[n])
         elif PLAYER_CARD[1] == uno_cards_dict[discard_pile_card][1]:
             valid_number_cards.append(player1_hand[n])
@@ -102,9 +102,11 @@ def replenish_draw_deck(draw_deck, discard_pile):
 
 
 # Simulates player turn  
+# If the action is True, then the player must perform the action if applicable 
+# If the action is False, the player is free to lay down a card without the consequence of a special card 
 def player_turn(action, discard_pile, player_hand, draw_deck, player):
     top_card = discard_pile[-1]
-    if action == True:
+    if action == True: 
         if uno_cards_dict[top_card][0] == "Skip":
             action = False
             return action, discard_pile, player_hand, draw_deck
@@ -134,7 +136,7 @@ def player_turn(action, discard_pile, player_hand, draw_deck, player):
         player_options = check_player2_hand(discard_pile[-1], player_hand)
 
     discard_pile, player_hand = lay_down_card(player_options, discard_pile, player_hand, draw_deck)
-    if len(player_options) == 0:
+    if len(player_options) == 0: # This ensures that a player does not perform an action froma special card more than once
         action = False
     else: 
         action = True

@@ -103,6 +103,8 @@ def replenish_draw_deck(draw_deck, discard_pile):
 
 
 # Simulates player turn  
+# If the action is True, then the player must perform the action if applicable 
+# If the action is False, the player is free to lay down a card without the consequence of a special card 
 def player_turn(action, discard_pile, player_hand, draw_deck, player):
     top_card = discard_pile[-1]
     if action == True:
@@ -134,7 +136,7 @@ def player_turn(action, discard_pile, player_hand, draw_deck, player):
         player_options = check_player2_hand(discard_pile[-1], player_hand)
 
     discard_pile, player_hand = lay_down_card(player_options, discard_pile, player_hand, draw_deck)
-    if len(player_options) == 0:
+    if len(player_options) == 0: # This ensures that a player does not perform an action froma special card more than once
         action = False
     else: 
         action = True
